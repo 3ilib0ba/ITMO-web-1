@@ -6,6 +6,7 @@ function validateX() {
     } else {
         showErrorToLog("Input X<br>");
         return false;
+
     }
     return true;
 }
@@ -61,12 +62,12 @@ function submit() {
                 newRow += '<td>' + (elem.isHit ? 'Попадание' : 'Промах') + '</td>';
                 $('#tableWithResults tr:first').after(newRow);
             }); 
-            $.post("toSessionDataPush.php", {
-                'x': X,
-                'y': Y,
-                'r': R,
-                'timezone': new Date().getTimezoneOffset()
-            })
+            // $.post("to Session Data Push.php", {
+            //     'x': X,
+            //     'y': Y,
+            //     'r': R,
+            //     'timezone': new Date().getTimezoneOffset()
+            // })
         }).fail(function (err) {
             alert(err);
         });

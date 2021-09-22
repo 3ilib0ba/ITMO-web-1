@@ -1,10 +1,11 @@
 <?php
 require_once("json_encode.php");
 
-//class toNewRowData
-//{
-//    public $x, $y, $r, $currentTime, $execTime, $isHit;
-//}
+session_start();
+
+if (!isset($_SESSION['requests']) || !is_array($_SESSION['requests'])) {
+    $_SESSION['requests'] = [];
+}
 
 function validateX($xVal): bool
 {
@@ -89,6 +90,17 @@ array_push($results, array(
     "execTime" => $executionTime,
     "isHit" => $isHit
 ));
+
+if ($isValid) {
+    array_unshift($_SESSION['requests'], [
+        "x" => $xVal,
+        "y" => $yVal,
+        "r" => $rVal,
+        "res" => $isHit,
+        "date" => $currentTime,
+        "runtime" => $executionTime
+    ]);
+}
 
 echo toJSON($results);
 ?>
