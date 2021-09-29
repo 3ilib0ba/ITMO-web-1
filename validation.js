@@ -35,20 +35,24 @@ function validateR() {
 }
 
 function showErrorToLog(message) {
-    $('#logs-request').append(message)
+    document.getElementById("logs-request").append(message)
 }
 
 function submit() {
     $('#logs-request').empty();
 
     if (validateX() & validateY() & validateR()) {
-        $.post("answer.php", {
-            'x': X,
-            'y': Y,
-            'r': R,
-            'timezone': new Date().getTimezoneOffset()
-        }).done(function (data) {
-            let arr = JSON.parse(data);
+        let request = new XMLHttpRequest();
+        let formData = new FormData()
+        formData.append("x", X);
+        formData.append("y", Y);
+        formData.append("r", R);
+        formData.append('timezone', new Date().getTimezoneOffset());
+        request.open('post', "answer.php", true)
+        request.overrideMimeType("application/json");
+        request.onload = function () {
+            console.log(request.responseText);
+            let arr = JSON.parse(request.responseText);
             arr.forEach(function (elem) {
                 if (!elem.validate) {
                     return;
@@ -61,15 +65,31 @@ function submit() {
                 newRow += '<td>' + elem.execTime + '</td>';
                 newRow += '<td>' + (elem.isHit ? 'Попадание' : 'Промах') + '</td>';
                 $('#tableWithResults tr:first').after(newRow);
-            }); 
-            // $.post("to Session Data Push.php", {
-            //     'x': X,
-            //     'y': Y,
-            //     'r': R,
-            //     'timezone': new Date().getTimezoneOffset()
-            // })
-        }).fail(function (err) {
-            alert(err);
-        });
+            })
+        };
+        request.send(formData);
+        // $.post("answer.php", {
+        //     'x': X,
+        //     'y': Y,
+        //     'r': R,
+        //     'timezone': new Date().getTimezoneOffset()
+        // }).done(function (data) {
+        //     let arr = JSON.parse(data);
+        //     arr.forEach(function (elem) {
+        //         if (!elem.validate) {
+        //             return;
+        //         }
+        //         let newRow = elem.isHit ? '<tr class="green" height="60px">' : '<tr class="red" height="60px">';
+        //         newRow += '<td>' + elem.x + '</td>';
+        //         newRow += '<td>' + elem.y + '</td>';
+        //         newRow += '<td>' + elem.r + '</td>';
+        //         newRow += '<td>' + elem.currentTime + '</td>';
+        //         newRow += '<td>' + elem.execTime + '</td>';
+        //         newRow += '<td>' + (elem.isHit ? 'Попадание' : 'Промах') + '</td>';
+        //         $('#tableWithResults tr:first').after(newRow);
+        //     });
+        // }).fail(function (err) {
+        //     alert(err);
+        // });
     }
 }

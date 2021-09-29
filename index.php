@@ -8,7 +8,7 @@ if (!isset($_SESSION['requests']) || !is_array($_SESSION['requests'])) {
 
 ?>
 
-<html lang="en">
+<html lang="ru">
 <head>
     <title>web-first</title>
     <meta charset="utf-8"/>
@@ -158,6 +158,11 @@ if (!isset($_SESSION['requests']) || !is_array($_SESSION['requests'])) {
             <p id="logs-request">Your last try:</p>
         </td>
     </tr>
+<!--    <tr>-->
+<!--        <td>-->
+<!--            <p><button type="submit" onclick="deleteSession()">Delete-results</button></p>-->
+<!--        </td>-->
+<!--    </tr>-->
     <tr>
         <td height="30%" colspan="2">
             <table id="tableWithResults" align="center" border="1px">
@@ -176,8 +181,8 @@ if (!isset($_SESSION['requests']) || !is_array($_SESSION['requests'])) {
                     <td><?=$request["x"]?></td>
                     <td><?=$request["y"]?></td>
                     <td><?=$request["r"]?></td>
-                    <td><?=$request["runtime"]?></td>
                     <td><?=$request["date"]?></td>
+                    <td><?=$request["runtime"]?></td>
                     <td><?php echo $request["res"] == true ? "Попадание" : "Промах"; ?></td>
                 </tr>
                 <?php
@@ -189,6 +194,7 @@ if (!isset($_SESSION['requests']) || !is_array($_SESSION['requests'])) {
 
 </table>
 <script src="validation.js"></script>
+<script src="other-editing/page-content.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

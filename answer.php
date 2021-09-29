@@ -7,7 +7,7 @@ if (!isset($_SESSION['requests']) || !is_array($_SESSION['requests'])) {
     $_SESSION['requests'] = [];
 }
 
-function validateX($xVal): bool
+function validateX($xVal)
 {
     $xValArray = array("-3", "-2", "-1", "0", "1", "2", "3", '4', "5");
     if (isset($xVal)) {
@@ -17,7 +17,7 @@ function validateX($xVal): bool
     return false;
 }
 
-function validateY($yVal): bool
+function validateY($yVal)
 {
     if (!isset($yVal))
         return false;
@@ -27,7 +27,7 @@ function validateY($yVal): bool
     }
 }
 
-function validateR($rVal): bool
+function validateR($rVal)
 {
     if (!isset($rVal))
         return false;
@@ -40,12 +40,12 @@ function validateR($rVal): bool
     }
 }
 
-function validateForm($xVal, $yVal, $rVal): bool
+function validateForm($xVal, $yVal, $rVal)
 {
     return validateX($xVal) && validateY($yVal) && validateR($rVal);
 }
 
-function checkHit($xVal, $yVal, $rVal): bool
+function checkHit($xVal, $yVal, $rVal)
 {
     $count = 0;
     if ($xVal >= 0 && $yVal >= 0) {
